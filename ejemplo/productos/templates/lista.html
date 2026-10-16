@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
+            --accent-color: #000000;
+            --danger-color: #d9381e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            max-width: 680px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: #cccccc;
+        }
+
+        .card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            margin: 4px 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .actions a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .actions a:hover {
+            color: var(--text-main);
+        }
+
+        .actions a.delete {
+            color: var(--danger-color);
+        }
+
+        .actions a.delete:hover {
+            opacity: 0.8;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Productos</h1>
+        <a href="/productos/crear/" class="btn btn-primary">Nuevo Producto</a>
+    </div>
+
+    {% for producto in productos %}
+        <div class="card">
+            <h3>{{ producto.nombre }}</h3>
+            <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+            <p><strong>Precio:</strong> ${{ producto.precio }} | <strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+
+            <div class="actions">
+                <a href="/productos/detalle/{{ producto.id }}/">Ver</a>
+                <a href="/productos/editar/{{ producto.id }}/">Editar</a>
+                <a href="/productos/eliminar/{{ producto.id }}/" class="delete">Eliminar</a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>No hay productos registrados.</p>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

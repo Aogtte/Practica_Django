@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if pedido %}Editar{% else %}Registrar{% endif %} Pedido</title>
+    <style>
+        :root {
+            --color-fondo: #fcfcfc;
+            --color-tarjeta: #ffffff;
+            --texto-principal: #1a1a1a;
+            --texto-secundario: #666666;
+            --color-borde: #e5e5e5;
+            --color-acento: #000000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--texto-principal);
+            max-width: 480px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        form {
+            background: var(--color-tarjeta);
+            border: 1px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .campo-formulario {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--texto-principal);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--color-borde);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: var(--color-acento);
+        }
+
+        .boton-guardar {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--color-acento);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .boton-guardar:hover {
+            opacity: 0.85;
+        }
+
+        .enlace-cancelar {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.875rem;
+            color: var(--texto-secundario);
+            text-decoration: none;
+        }
+
+        .enlace-cancelar:hover {
+            color: var(--texto-principal);
+        }
+    </style>
+</head>
+<body>
+    <h1>{% if pedido %}Editar{% else %}Nuevo{% endif %} Pedido</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="campo-formulario">
+        <label for="numero_pedido">Número del Pedido</label>
+        <input type="number" name="numero_pedido" value="{{ pedido.numero_pedido|default:'' }}" required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="nombre_cliente">Nombre del Cliente</label>
+        <input type="text" name="nombre_cliente" value="{{ pedido.nombre_cliente|default:'' }}" required autocomplete="off">
+    </div>
+
+    <div class="campo-formulario">
+        <label for="fecha">Fecha del Pedido</label>
+        <input type="date" name="fecha" value="{{ pedido.fecha|date:'Y-m-d' }}" required autocomplete="off">
+    </div>
+
+    <div class="campo-formulario">
+        <label for="descripcion">Descripción</label>
+        <input type="text" name="descripcion" value="{{ pedido.descripcion|default:'' }}" required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="valor">Valor</label>
+        <input type="number" step="0.01" name="valor" value="{{ pedido.valor|default:'' }}" required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="estado">Estado del Pedido</label>
+        <select name="estado" id="estado" required>
+            <option value="">Seleccione un Estado</option>
+            <option value="Pendiente" {% if pedido.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+            <option value="Completado" {% if pedido.estado == "Completado" %}selected{% endif %}>Completado</option>
+            <option value="Cancelado" {% if pedido.estado == "Cancelado" %}selected{% endif %}>Cancelado</option>
+        </select>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="usuario">Usuario que registró el Pedido</label>
+        <input type="text" name="usuario" value="{{ pedido.usuario|default:'' }}" required>
+    </div>
+
+    <button type="submit" class="boton-guardar">Guardar</button>
+    <a href="/pedidos/" class="enlace-cancelar">Cancelar</a>
+</form>
+
+</body>
+</html>

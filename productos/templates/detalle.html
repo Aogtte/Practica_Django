@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #e5e5e5;
+            --accent-color: #000000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            max-width: 480px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-item {
+            margin-bottom: 16px;
+        }
+
+        .detail-item span {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .detail-item p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .footer-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        a {
+            font-size: 0.875rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-edit {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 8px 14px;
+            border-radius: 6px;
+        }
+
+        .btn-edit:hover {
+            opacity: 0.85;
+        }
+
+        .link-back {
+            color: var(--text-muted);
+        }
+
+        .link-back:hover {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Detalle del Producto</h1>
+
+        <div class="detail-item">
+            <span>Nombre</span>
+            <p>{{ producto.nombre }}</p>
+        </div>
+
+        <div class="detail-item">
+            <span>Descripcion</span>
+            <p>{{ producto.descripcion }}</p>
+        </div>
+
+        <div class="detail-item">
+            <span>Precio</span>
+            <p>${{ producto.precio }}</p>
+        </div>
+
+        <div class="detail-item">
+            <span>Fecha</span>
+            <p>${{ producto.fecha }}</p>
+        </div>
+
+        <div class="footer-actions">
+            <a href="/productos/" class="link-back">← Volver al listado</a>
+            <a href="/productos/editar/{{ producto.id }}/" class="btn-edit">Editar</a>
+        </div>
+    </div>
+
+</body>
+</html>

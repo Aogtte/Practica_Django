@@ -29,10 +29,7 @@ SECRET_KEY = 'django-insecure-i^by($#-7cydgj3g9n2$o3x7%+@ifq4g3-^%26+6t@r5(@7!n9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = [
-    'taller-asistencia.onrender.com', 'localhost', '127.0.0.1'
-]
+ALLOWED_HOSTS = ['practica-django-ww2r.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
